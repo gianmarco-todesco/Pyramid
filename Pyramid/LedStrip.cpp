@@ -23,6 +23,7 @@ void LedStrip::switchOff()
 {
   if(mode==0) return;
   mode = 0;
+  Serial.println("switchOff");
   for(uint16_t i=0; i<strip.numPixels(); i++) 
   {
     strip.setPixelColor(i, strip.Color(0,0,0));   

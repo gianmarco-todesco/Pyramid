@@ -83,7 +83,7 @@ void setup() {
   accel.begin();
   oldTime = millis();
   Serial.println("Pyramid started");
-  speaker.play(2,0x5);
+  speaker.play(3,0xf);
       
 }
 
@@ -95,7 +95,7 @@ void loop() {
     if(gp.getCommand()==1) 
     { 
       Serial.println("activated");
-      speaker.play(1,0x5);
+      speaker.play(1,0xF);
       state = 1; 
       oldTime = millis(); 
       strip.switchOn(); 
@@ -112,13 +112,17 @@ void loop() {
   {
     if(millis()-oldTime>30000)
     {
+      Serial.println("Fine");
       state = 0;
       strip.switchOff();
     }
-    float delta = compass.getDelta(0);
-    if(delta>10) strip.setMovement(-1.0f);
-    else if(delta<-10) strip.setMovement(1.0f);
-    else strip.setSupercar(10,255,70);    
+    else
+    {
+      float delta = compass.getDelta(0);
+      if(delta>10) strip.setMovement(-1.0f);
+      else if(delta<-10) strip.setMovement(1.0f);
+      else strip.setSupercar(10,255,70);    
+    }
   }
   delay(20);  
 }
