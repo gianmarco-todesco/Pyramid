@@ -2,6 +2,7 @@
 #define PULSEPIN 8
 #define LEDPIN 13
 #define BUZZERPIN  6
+#define POWERPIN  4
 unsigned long int duration;
 unsigned long int start;
 
@@ -11,12 +12,13 @@ void setup()
   Serial.begin(9600);
   pinMode(PULSEPIN, INPUT);
   pinMode(BUZZERPIN, OUTPUT);
+    pinMode(POWERPIN, OUTPUT);
   pinMode(LEDPIN, OUTPUT);
   digitalWrite(LEDPIN, HIGH);
   innescato = 0;
   delay(1000);
   tone(BUZZERPIN, 500, 200); delay(500);
-
+    digitalWrite(POWERPIN,HIGH);
   //digitalWrite(BUZZERPIN, HIGH); delay(500);
   //digitalWrite(BUZZERPIN, LOW); delay(100);
 }
@@ -42,10 +44,11 @@ void loop()
     digitalWrite(LEDPIN, LOW);
   }
   if (innescato && duration) {
+    digitalWrite(POWERPIN,LOW);
+    tone(BUZZERPIN, 500, 3000); delay(2000);
 
-    tone(BUZZERPIN, 500, 600); delay(500);
-    delay(500);
-
+    digitalWrite(POWERPIN,HIGH);
+    delay(2000);
     // digitalWrite(BUZZERPIN, HIGH); delay(500);
     // digitalWrite(BUZZERPIN, LOW); delay(100);
 
